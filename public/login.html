@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - College Bus Management System</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="login-container">
+        <h1>College Bus Management System</h1>
+        <h2>Login</h2>
+        <p class="login-text"> Select your role and enter your login details </p>
+
+        <div class="role-selection">
+            <button type="button" class="role-button active" onclick="selectRole('student', this)"> Student </button>
+            <button type="button" class="role-button" onclick="selectRole('admin', this)"> Admin </button>
+            <button type="button" class="role-button" onclick="selectRole('driver', this)"> Driver </button>
+        </div>
+
+        <form id="loginForm">
+            <input type="hidden" id="role" name="role" value="student">
+
+            <label for="username"> Username </label>
+            <input type="text" id="username" name="username" placeholder="Enter username" required>
+
+            <label for="password"> Password </label>
+            <input type="password" id="password" name="password" placeholder="Enter password" required>
+
+            <p id="loginMessage"></p>
+
+            <button type="submit" class="login-button"> Login </button>
+        </form>
+
+        <p class="register-text">
+            Don't have an account?
+            <a href="register.html">Register</a>
+        </p>
+
+        <p>
+            <a href="index.html">← Back to Home</a>
+        </p>
+    </div>
+
+    <script>
+    function selectRole(selectedRole, selectedButton) {
+        document.getElementById("role").value = selectedRole;
+
+        const buttons = document.querySelectorAll(".role-button");
+
+        buttons.forEach(function(button) {
+            button.classList.remove("active");
+        });
+
+        selectedButton.classList.add("active");
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const formData = new URLSearchParams();
+
+        formData.append("username", document.getElementById("username").value);
+        formData.append("password", document.getElementById("password").value);
+        formData.append("role", document.getElementById("role").value);
+
+        fetch("/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: formData
+        })
+        .then(function(response) {
+            if (response.redirected) {
+                window.location.href = response.url;
+                return null;
+            }
+
+            const contentType = response.headers.get("content-type") || "";
+
+            if (contentType.includes("application/json")) {
+                return response.json();
+            }
+
+            return response.text();
+        })
+        .then(function(data) {
+            if (!data) {
+                return;
+            }
+
+            if (data.success && data.admin) {
+                localStorage.setItem("adminName", data.admin.name);
+                localStorage.setItem("adminEmail", data.admin.email);
+                localStorage.setItem("adminRole", data.admin.role);
+
+                const loginMessage = document.getElementById("loginMessage");
+
+                loginMessage.textContent = "Login successful!";
+                loginMessage.classList.remove("error");
+                loginMessage.classList.add("success");
+
+                setTimeout(function() {
+                    window.location.href = data.redirect;
+                }, 700);
+
+                return;
+            }
+
+            if (typeof data === "string") {
+                const loginMessage = document.getElementById("loginMessage");
+
+                loginMessage.textContent = data;
+                loginMessage.classList.remove("success");
+                loginMessage.classList.add("error");
+            }
+        })
+        .catch(function() {
+            const loginMessage = document.getElementById("loginMessage");
+
+            loginMessage.textContent = "Login failed. Please try again.";
+            loginMessage.classList.remove("success");
+            loginMessage.classList.add("error");
+        });
+    });
+    </script>
+</body>
+</html>

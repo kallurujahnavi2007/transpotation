@@ -1,0 +1,552 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+
+/* =========================
+   NAVBAR
+   ========================= */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0D74A1;
+    padding: 15px 50px;
+    color: white;
+    gap: 30px;
+    
+}
+
+header{
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    flex: 1;
+}
+
+.logo h1 {
+    color: white;
+    font-size: 28px;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 25px;
+}
+
+.nav-links li {
+    margin: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: whitesmoke;
+    font-weight: bold;
+}
+
+.nav-links a:hover {
+    color: black;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.buttons button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.buttons button a {
+    text-decoration: none;
+}
+
+.buttons button:first-child {
+    background-color: white;
+    color: black;
+}
+
+.buttons button:last-child {
+    background-color: orange;
+    color: white;
+}
+
+
+/* =========================
+   HERO SECTION
+   ========================= */
+
+.hero {
+    height: 100vh;
+    background-image:
+        linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+        url("img2.jpeg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-content {
+    text-align: center;
+    color: white;
+    width: 70%;
+}
+
+.hero-content h1 {
+    font-size: 55px;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 22px;
+    margin-bottom: 30px;
+    line-height: 35px;
+}
+
+.hero-buttons {
+    margin-top: 20px;
+}
+
+.hero-buttons button {
+    padding: 15px 30px;
+    margin: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.btn1 {
+    background: orange;
+    color: white;
+}
+
+.btn2 {
+    background: orange;
+    color: white;
+}
+
+.hero-buttons button:hover {
+    transform: scale(1.05);
+}
+
+
+/* =========================
+   ABOUT SECTION
+   ========================= */
+
+.about {
+    padding: 70px 80px;
+    background-color: lightgray;
+    text-align: center;
+}
+
+.about h2 {
+    font-size: 40px;
+    color: #0D47A1;
+    margin-bottom: 20px;
+}
+
+.about-text {
+    width: 80%;
+    margin: 20px auto;
+    font-size: 18px;
+    line-height: 30px;
+    margin-bottom: 50px;
+    color: #555;
+    text-align: center;
+}
+
+.features {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    width: 23%;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+}
+
+.card h3 {
+    color: #0D47A1;
+    margin-bottom: 15px;
+}
+
+.card p {
+    color: #666;
+    line-height: 25px;
+}
+
+
+/* =========================
+   BUS STATUS
+   ========================= */
+
+.bus-status {
+    padding: 70px 80px;
+    background: white;
+    text-align: center;
+}
+
+.bus-status h2 {
+    font-size: 40px;
+    color: #0D47A1;
+    margin-bottom: 40px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th {
+    background-color: #0D47A1;
+    color: white;
+    padding: 15px;
+}
+
+table td {
+    padding: 15px;
+    border: 1px solid #ddd;
+}
+
+table tr:nth-child(even) {
+    background: #f4f4f4;
+}
+
+.ontime {
+    color: green;
+    font-weight: bold;
+}
+
+.delay {
+    color: orange;
+    font-weight: bold;
+}
+
+.cancel {
+    color: red;
+    font-weight: bold;
+}
+
+
+/* =========================
+   CONTACT SECTION
+   ========================= */
+
+.contact {
+    padding: 70px 80px;
+    background: #f4f6f9;
+}
+
+.contact h2 {
+    text-align: center;
+    font-size: 42px;
+    color: #0D47A1;
+    margin-bottom: 50px;
+}
+
+.contact-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.contact-info {
+    width: 45%;
+}
+
+.contact-info h3 {
+    color: #0D47A1;
+    margin-bottom: 20px;
+}
+
+.contact-info p {
+    margin-bottom: 20px;
+    font-size: 18px;
+    line-height: 30px;
+}
+
+.contact-form {
+    width: 45%;
+}
+
+.contact-form h3 {
+    margin-bottom: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.contact-form button {
+    background: #FF9800;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background: #e68900;
+}
+
+
+/* =========================
+   LOGIN
+   ========================= */
+
+.login {
+    height: 100vh;
+    background:
+        linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+        url("img1.jpeg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    width: 380px;
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
+}
+
+.login-box h2 {
+    text-align: center;
+    color: #0D47A1;
+    margin-bottom: 30px;
+}
+
+.login-box label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.login-box input:focus {
+    outline: none;
+    border: 2px solid #0D47A1;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 14px;
+    background: #0D47A1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.login-box button:hover {
+    background: #1565C0;
+}
+
+.forgot {
+    text-align: right;
+    margin-top: 15px;
+}
+
+.forgot a {
+    text-decoration: none;
+    color: #0D47A1;
+}
+
+.forgot a:hover {
+    color: orange;
+}
+
+.register {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.register a {
+    text-decoration: none;
+    color: #0D47A1;
+    font-weight: bold;
+}
+
+.register a:hover {
+    color: orange;
+}
+
+
+/* =========================
+   SMOOTH SCROLL
+   ========================= */
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+/* =========================
+   MOBILE / SMALL SCREEN
+   ========================= */
+
+@media (max-width: 1000px) {
+
+    .navbar {
+        padding: 15px 25px;
+        flex-wrap: wrap;
+    }
+
+    .logo {
+        flex: 1 1 100%;
+        text-align: center;
+    }
+
+    .logo h1 {
+        white-space: normal;
+    }
+
+    .nav-links {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .buttons {
+        justify-content: center;
+    }
+
+    .card {
+        width: 45%;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .navbar {
+        flex-direction: column;
+    }
+
+    .nav-links {
+        flex-direction: column;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    .hero-content {
+        width: 90%;
+    }
+
+    .hero-content h1 {
+        font-size: 40px;
+    }
+
+    .hero-content p {
+        font-size: 18px;
+        line-height: 28px;
+    }
+
+    .about,
+    .bus-status,
+    .contact {
+        padding: 50px 20px;
+    }
+
+    .contact-info,
+    .contact-form {
+        width: 100%;
+    }
+}
+
+/* =========================
+   NOTIFICATIONS SECTION
+   ========================= */
+
+.notifications {
+    padding: 70px 80px;
+    background-color: #f4f6f9;
+    text-align: center;
+}
+
+.notifications h2 {
+    font-size: 40px;
+    color: #0D47A1;
+    margin-bottom: 40px;
+}
+
+.notification-card {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px 25px;
+    background-color: white;
+    border-left: 6px solid #FF9800;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.notification-card h3 {
+    color: #0D47A1;
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+
+.notification-card p {
+    color: #555;
+    font-size: 17px;
+    line-height: 28px;
+}

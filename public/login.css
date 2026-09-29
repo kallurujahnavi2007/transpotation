@@ -1,0 +1,289 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 520px;
+    background: white;
+    padding: 38px 42px;
+    border-radius: 18px;
+    box-shadow: 0 15px 40px rgba(20, 40, 70, 0.12);
+    border: 1px solid #e8edf3;
+}
+
+.login-container h1 {
+    margin: 0;
+    text-align: center;
+    color: #172b4d;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.login-container h2 {
+    margin: 25px 0 5px;
+    text-align: center;
+    color: #1976D2;
+    font-size: 22px;
+}
+
+.login-text {
+    text-align: center;
+    color: #7a8795;
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+.role-selection {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.role-button {
+    flex: 1;
+    border: 1px solid #dfe5ec;
+    background: #f8fafc;
+    color: #52616f;
+    padding: 11px;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.25s ease, border-color 0.25s ease, color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.role-button:hover {
+    border-color: #1976D2;
+    color: #1976D2;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(25, 118, 210, 0.12);
+}
+
+.role-button.active {
+    background: #1976D2;
+    color: white;
+    border-color: #1976D2;
+    box-shadow: 0 5px 12px rgba(25, 118, 210, 0.18);
+}
+
+.login-container label {
+    display: block;
+    color: #435263;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 7px;
+    margin-top: 16px;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 12px 13px;
+    border: 1px solid #dfe5ec;
+    border-radius: 9px;
+    outline: none;
+    font-size: 13px;
+    color: #26384d;
+    background: #fbfcfe;
+    transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+.login-container input:focus {
+    border-color: #1976D2;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.08);
+    transform: translateY(-1px);
+}
+
+.login-container input::placeholder {
+    color: #a0aab5;
+}
+
+.password-field {
+    position: relative;
+}
+
+.password-field input {
+    padding-right: 45px;
+}
+
+.eye-button {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    font-size: 17px;
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.eye-button:hover {
+    opacity: 0.7;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.login-button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 13px;
+    border: none;
+    border-radius: 9px;
+    background: #1976D2;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.login-button:hover {
+    background: #125ca8;
+    box-shadow: 0 7px 16px rgba(25, 118, 210, 0.22);
+    transform: translateY(-2px);
+}
+
+.login-button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(25, 118, 210, 0.15);
+}
+
+#loginMessage,
+#registerMessage {
+    min-height: 20px;
+    margin: 14px 0;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    animation: loginMessageAppear 0.25s ease;
+}
+
+#loginMessage.error,
+#registerMessage.error {
+    color: #dc2626;
+}
+
+#loginMessage.success,
+#registerMessage.success {
+    color: #16a34a;
+}
+
+.register-text {
+    text-align: center;
+    color: #7a8795;
+    font-size: 13px;
+    margin-top: 22px;
+}
+
+.register-text a,
+.login-container > p a {
+    color: #1976D2;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.register-text a:hover,
+.login-container > p a:hover {
+    color: #125ca8;
+    text-decoration: underline;
+}
+
+.login-container > p:last-child {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 12px;
+}
+
+.login-container {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 45px rgba(20, 40, 70, 0.16);
+}
+
+.login-container h1 {
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.login-container h1:hover {
+    color: #1976D2;
+    transform: translateY(-1px);
+}
+
+.login-container h2 {
+    transition: transform 0.3s ease;
+}
+
+.login-container h2:hover {
+    transform: translateY(-2px);
+}
+
+@keyframes loginMessageAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 15px;
+    }
+
+    .login-container {
+        padding: 30px 25px;
+    }
+
+    .login-container h1 {
+        font-size: 21px;
+    }
+
+    .role-selection {
+        gap: 6px;
+    }
+
+    .role-button {
+        padding: 10px 5px;
+        font-size: 12px;
+    }
+}
+
+#loginMessage {
+    min-height: 20px;
+    margin: 14px 0;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+}
+
+#loginMessage.success {
+    color: #16a34a !important;
+}
+
+#loginMessage.error {
+    color: #dc2626 !important;
+}

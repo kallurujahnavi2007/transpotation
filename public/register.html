@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - College Bus Management System</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <h1>College Bus Management System</h1>
+
+        <h2>Register</h2>
+
+        <p class="login-text">Create your account</p>
+
+        <div class="role-selection">
+
+            <button type="button" class="role-button active" onclick="selectRole('student', this)">
+                Student
+            </button>
+
+            <button type="button" class="role-button" onclick="selectRole('admin', this)">
+                Admin
+            </button>
+
+            <button type="button" class="role-button" onclick="selectRole('driver', this)">
+                Driver
+            </button>
+
+        </div>
+
+        <form id="registerForm">
+
+            <input type="hidden" id="role" name="role" value="student">
+
+            <label for="username">Username</label>
+
+            <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Enter username"
+                required
+            >
+
+            <div id="rollNumberField">
+
+                <label for="rollnumber">Roll Number</label>
+
+                <input
+                    type="text"
+                    id="rollnumber"
+                    name="rollnumber"
+                    placeholder="Enter roll number"
+                    pattern="[A-Za-z0-9]{10}"
+                    maxlength="10"
+                    minlength="10"
+                    required
+                >
+
+            </div>
+
+            <label for="email">Email</label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter email"
+                pattern="[a-zA-Z0-9._%+-]+@gmail\.com"
+                title="Please enter a valid Gmail address"
+                required
+            >
+
+            <label for="phone">Phone Number</label>
+
+            <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="Enter phone number"
+                pattern="[0-9]{10}"
+                maxlength="10"
+                minlength="10"
+                required
+            >
+
+            <label for="password">Password</label>
+
+            <div class="password-field">
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter password"
+                    required
+                >
+
+                <button
+                    type="button"
+                    class="eye-button"
+                    onclick="togglePassword('password', this)"
+                >👁</button>
+
+            </div>
+
+            <label for="confirmPassword">Confirm Password</label>
+
+            <div class="password-field">
+
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    placeholder="Confirm password"
+                    required
+                >
+
+                <button
+                    type="button"
+                    class="eye-button"
+                    onclick="togglePassword('confirmPassword', this)"
+                >👁</button>
+
+            </div>
+
+            <button type="submit" class="login-button">
+                Register
+            </button>
+
+            <p id="registerMessage"></p>
+
+        </form>
+
+        <p class="register-text">
+            Already have an account?
+            <a href="login.html">Login</a>
+        </p>
+
+        <p>
+            <a href="login.html">← Back to login</a>
+        </p>
+
+    </div>
+
+    <script>
+
+        function togglePassword(inputId, button) {
+
+            const password = document.getElementById(inputId);
+
+            if (password.type === "password") {
+
+                password.type = "text";
+                button.textContent = "🙈";
+
+            } else {
+
+                password.type = "password";
+                button.textContent = "👁";
+
+            }
+        }
+
+        function selectRole(selectedRole, selectedButton) {
+
+            document.getElementById("role").value = selectedRole;
+
+            const buttons = document.querySelectorAll(".role-button");
+
+            buttons.forEach(function(button) {
+                button.classList.remove("active");
+            });
+
+            selectedButton.classList.add("active");
+
+            const rollNumber = document.getElementById("rollNumberField");
+            const rollNumberInput = document.getElementById("rollnumber");
+
+            if (selectedRole === "student") {
+
+                rollNumber.style.display = "block";
+                rollNumberInput.required = true;
+
+            } else {
+
+                rollNumber.style.display = "none";
+                rollNumberInput.required = false;
+                rollNumberInput.value = "";
+
+            }
+        }
+
+        document.getElementById("registerForm").addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const formData = new URLSearchParams();
+
+            formData.append("username", document.getElementById("username").value);
+            formData.append("rollnumber", document.getElementById("rollnumber").value);
+            formData.append("email", document.getElementById("email").value);
+            formData.append("phone", document.getElementById("phone").value);
+            formData.append("password", document.getElementById("password").value);
+            formData.append("confirmPassword", document.getElementById("confirmPassword").value);
+            formData.append("role", document.getElementById("role").value);
+
+            fetch("/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: formData
+            })
+
+            .then(function(response) {
+                return response.text();
+            })
+
+            .then(function(message) {
+
+                const registerMessage = document.getElementById("registerMessage");
+
+                registerMessage.textContent = message;
+
+                if (message.includes("successful")) {
+                    registerMessage.style.color = "green";
+                } else {
+                    registerMessage.style.color = "red";
+                }
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>

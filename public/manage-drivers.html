@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Drivers - College Bus Management</title>
+    <link rel="stylesheet" href="manage-drivers.css">
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo-section">
+            <div class="logo-icon">🚌</div>
+            <div>
+                <h2>College Bus</h2>
+                <p> Management System</p>
+            </div>
+        </div>
+
+        <div class="menu-title">MAIN MENU</div>
+
+        <nav class="sidebar-nav">
+
+            <a href="admin-dashboard.html">
+                <span class="nav-icon">▦</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="manage-students.html">
+                <span class="nav-icon">🎓</span>
+                <span>Students</span>
+            </a>
+
+            <a href="manage-drivers.html" class="active">
+                <span class="nav-icon">👨‍✈️</span>
+                <span>Drivers</span>
+            </a>
+
+            <a href="manage-buses.html">
+                <span class="nav-icon">🚌</span>
+                <span>Buses</span>
+            </a>
+
+            <a href="manage-routes.html">
+                <span class="nav-icon">🛣️</span>
+                <span>Routes</span>
+            </a>
+
+            <a href="notifications.html">
+                <span class="nav-icon">🔔</span>
+                <span>Notifications</span>
+            </a>
+
+            <a href="settings.html">
+                <span class="nav-icon">⚙️</span>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+        <a href="login.html" class="logout-link">
+            <span class="nav-icon"></span>
+            <span>Logout</span>
+        </a>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+
+        <header>
+
+            <div>
+                <div class="small-heading">DRIVER MANAGEMENT</div>
+
+                <h1>Manage Drivers</h1>
+
+                <p class="welcome-text">
+                    View, update and manage all bus driver information.
+                </p>
+            </div>
+
+            <div class="top-profile">
+
+                <div class="notification-icon">
+                    🔔
+                    <span></span>
+                </div>
+
+                <div class="top-avatar">
+                    A
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <main>
+
+            <!-- PAGE INTRO -->
+            <section class="page-intro">
+
+                <div>
+                    <h2>Driver Records</h2>
+
+                    <p>
+                        Manage driver details and keep driver information updated.
+                    </p>
+                </div>
+
+                <div class="count-card">
+
+                    <div class="count-icon">
+                        👨‍✈️
+                    </div>
+
+                    <div>
+                        <small>Total Drivers</small>
+                        <strong id="driverCount">0</strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- DRIVER TABLE -->
+            <section class="table-card">
+
+                <div class="table-heading">
+
+                    <div>
+                        <h2>All Drivers</h2>
+
+                        <p>
+                            Driver details registered in the system.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Driver Name</th>
+                                <th>License Number</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="driverTableBody">
+
+                            <tr>
+                                <td colspan="6" class="empty-message">
+                                    Loading drivers...
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</div>
+
+
+<!-- EDIT DRIVER MODAL -->
+
+<div class="modal" id="editModal">
+
+    <div class="modal-content">
+
+        <span class="close" onclick="closeEditModal()">
+            &times;
+        </span>
+
+        <h2>Edit Driver</h2>
+
+
+        <form id="editDriverForm">
+
+            <input type="hidden" id="editDriverId">
+
+
+            <div class="form-group">
+
+                <label for="editName">
+                    Driver Name
+                </label>
+
+                <input
+                    type="text"
+                    id="editName"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="editLicense">
+                    License Number
+                </label>
+
+                <input
+                    type="text"
+                    id="editLicense"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="editPhone">
+                    Phone Number
+                </label>
+
+                <input
+                    type="text"
+                    id="editPhone"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="editEmail">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="editEmail"
+                    required
+                >
+
+            </div>
+
+
+            <button type="submit" class="primary-btn">
+                Update Driver
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let drivers = [];
+
+
+async function loadDrivers() {
+
+    try {
+
+        const response = await fetch("/drivers");
+
+        if (!response.ok) {
+            throw new Error("Failed to load drivers");
+        }
+
+        drivers = await response.json();
+
+        displayDrivers();
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("driverTableBody").innerHTML = `
+            <tr>
+                <td colspan="6" class="empty-message">
+                    Unable to load driver records.
+                </td>
+            </tr>
+        `;
+
+    }
+
+}
+
+
+function displayDrivers() {
+
+    const tableBody = document.getElementById("driverTableBody");
+
+    document.getElementById("driverCount").textContent =
+        drivers.length;
+
+
+    if (drivers.length === 0) {
+
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="6" class="empty-message">
+                    No drivers found.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    tableBody.innerHTML = drivers.map(driver => {
+
+        return `
+            <tr>
+
+                <td>${driver.id}</td>
+
+                <td>
+                    <strong>${driver.name || ""}</strong>
+                </td>
+
+                <td>
+                    ${driver.license_number || ""}
+                </td>
+
+                <td>
+                    ${driver.phone || ""}
+                </td>
+
+                <td>
+                    ${driver.email || ""}
+                </td>
+
+                <td>
+
+                    <button
+                        class="edit-button"
+                        onclick="openEditModal(${driver.id})">
+                        Edit
+                    </button>
+
+                    <button
+                        class="delete-button"
+                        onclick="deleteDriver(${driver.id})">
+                        Delete
+                    </button>
+
+                </td>
+
+            </tr>
+        `;
+
+    }).join("");
+
+}
+
+
+function openEditModal(id) {
+
+    const driver = drivers.find(item => item.id == id);
+
+    if (!driver) {
+        return;
+    }
+
+
+    document.getElementById("editDriverId").value =
+        driver.id;
+
+    document.getElementById("editName").value =
+        driver.name || "";
+
+    document.getElementById("editLicense").value =
+        driver.license_number || "";
+
+    document.getElementById("editPhone").value =
+        driver.phone || "";
+
+    document.getElementById("editEmail").value =
+        driver.email || "";
+
+
+    document.getElementById("editModal").style.display =
+        "flex";
+}
+
+
+function closeEditModal() {
+
+    document.getElementById("editModal").style.display =
+        "none";
+}
+
+
+async function deleteDriver(id) {
+
+    const confirmDelete =
+        confirm("Are you sure you want to delete this driver?");
+
+    if (!confirmDelete) {
+        return;
+    }
+
+
+    try {
+
+        const response = await fetch(`/drivers/${id}`, {
+            method: "DELETE"
+        });
+
+
+        if (!response.ok) {
+            throw new Error("Failed to delete driver");
+        }
+
+
+        await loadDrivers();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Unable to delete driver.");
+
+    }
+
+}
+
+
+document
+    .getElementById("editDriverForm")
+    .addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+
+        const id =
+            document.getElementById("editDriverId").value;
+
+
+        const updatedDriver = {
+
+            name:
+                document.getElementById("editName").value.trim(),
+
+            license_number:
+                document.getElementById("editLicense").value.trim(),
+
+            phone:
+                document.getElementById("editPhone").value.trim(),
+
+            email:
+                document.getElementById("editEmail").value.trim()
+
+        };
+
+
+        try {
+
+            const response = await fetch(`/drivers/${id}`, {
+
+                method: "PUT",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(updatedDriver)
+
+            });
+
+
+            if (!response.ok) {
+                throw new Error("Failed to update driver");
+            }
+
+
+            closeEditModal();
+
+            await loadDrivers();
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert("Unable to update driver.");
+
+        }
+
+    });
+
+
+window.addEventListener("click", function(event) {
+
+    const modal =
+        document.getElementById("editModal");
+
+    if (event.target === modal) {
+        closeEditModal();
+    }
+
+});
+
+
+loadDrivers();
+
+</script>
+
+</body>
+</html>

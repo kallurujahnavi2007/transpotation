@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - College Bus Management System</title>
+    <link rel="stylesheet" href="settings.css">
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <aside class="sidebar">
+
+        <div class="logo-section">
+            <div class="logo-icon">🚌</div>
+
+            <div>
+                <h2>College Bus</h2>
+                <p>Management System</p>
+            </div>
+        </div>
+        <div class="menu-title">
+            MAIN MENU
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="admin-dashboard.html">
+                <span>▦</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="manage-students.html">
+                <span>🎓</span>
+                <span>Students</span>
+            </a>
+
+            <a href="manage-drivers.html">
+                <span>👨‍✈️</span>
+                <span>Drivers</span>
+            </a>
+
+            <a href="manage-buses.html">
+                <span>🚌</span>
+                <span>Buses</span>
+            </a>
+
+            <a href="manage-routes.html">
+                <span>🛣️</span>
+                <span>Routes</span>
+            </a>
+
+            <a href="notifications.html">
+                <span>🔔</span>
+                <span>Notifications</span>
+            </a>
+
+            <a href="settings.html">
+                <span>⚙️</span>
+                <span>Settings</span>
+            </a>
+
+            <a href="index.html" class="logout">
+                <span></span>
+                <span>Logout</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="top-header">
+            <div>
+                <h1>Settings</h1>
+                <p>Manage your admin account settings</p>
+            </div>
+        </header>
+
+
+        <section class="page-content">
+
+            <div class="page-intro">
+                <div>
+                    <h2>Account Settings</h2>
+                    <p>Manage your administrator account information.</p>
+                </div>
+            </div>
+
+
+            <div class="settings-grid">
+
+                <div class="settings-card">
+
+                    <div class="card-header">
+                        <h2>Admin Profile</h2>
+                        <p>Manage your administrator information.</p>
+                    </div>
+
+                    <form id="profileForm">
+
+                        <div class="form-group">
+                            <label for="adminName">
+                                Admin Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="adminName"
+                                placeholder="Admin name"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="adminEmail">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                id="adminEmail"
+                                placeholder="Email address"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="adminRole">
+                                Role
+                            </label>
+
+                            <input
+                                type="text"
+                                id="adminRole"
+                                value="Administrator"
+                                readonly
+                            >
+                        </div>
+
+                        <button type="submit" class="btn-primary">
+                            Save Profile
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <div class="settings-card">
+
+                    <div class="card-header">
+                        <h2>Change Password</h2>
+                        <p>Update your administrator password.</p>
+                    </div>
+
+                    <form id="passwordForm">
+
+                        <div class="form-group">
+                            <label for="currentPassword">
+                                Current Password
+                            </label>
+
+                            <input
+                                type="password"
+                                id="currentPassword"
+                                placeholder="Enter current password"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newPassword">
+                                New Password
+                            </label>
+
+                            <input
+                                type="password"
+                                id="newPassword"
+                                placeholder="Enter new password"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">
+                                Confirm New Password
+                            </label>
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                placeholder="Confirm new password"
+                            >
+                        </div>
+
+                        <button type="submit" class="btn-primary">
+                            Change Password
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+</div>
+
+
+<script>
+
+    const profileForm =
+        document.getElementById("profileForm");
+
+    const passwordForm =
+        document.getElementById("passwordForm");
+
+
+    profileForm.addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+            const name =
+                document.getElementById("adminName").value.trim();
+
+            const email =
+                document.getElementById("adminEmail").value.trim();
+
+            if (!name || !email) {
+                alert("Please fill all profile details.");
+                return;
+            }
+
+            localStorage.setItem("adminName", name);
+            localStorage.setItem("adminEmail", email);
+
+            alert("Profile saved successfully.");
+
+        }
+    );
+
+
+    passwordForm.addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+            const currentPassword =
+                document.getElementById("currentPassword").value;
+
+            const newPassword =
+                document.getElementById("newPassword").value;
+
+            const confirmPassword =
+                document.getElementById("confirmPassword").value;
+
+            if (!currentPassword ||
+                !newPassword ||
+                !confirmPassword) {
+
+                alert("Please fill all password fields.");
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+
+                alert("New passwords do not match.");
+                return;
+
+            }
+
+            if (newPassword.length < 6) {
+
+                alert(
+                    "New password must contain at least 6 characters."
+                );
+
+                return;
+            }
+
+            alert(
+                "Password change request submitted successfully."
+            );
+
+            passwordForm.reset();
+
+        }
+    );
+
+
+    function loadSettings() {
+
+        const savedName =
+            localStorage.getItem("adminName");
+
+        const savedEmail =
+            localStorage.getItem("adminEmail");
+
+
+        if (savedName) {
+
+            document.getElementById("adminName").value =
+                savedName;
+
+        }
+
+        if (savedEmail) {
+
+            document.getElementById("adminEmail").value =
+                savedEmail;
+
+        }
+
+    }
+
+
+    loadSettings();
+
+</script>
+
+</body>
+</html>
